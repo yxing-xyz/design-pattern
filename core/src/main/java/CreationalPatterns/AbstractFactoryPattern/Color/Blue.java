@@ -1,6 +1,6 @@
 /**
  * Copyright (C), 2015-2018, XXX有限公司
- * FileName: Red
+ * FileName: Blue
  * Author:   yuxing1994
  * Date:     2018/8/9 23:06
  * Description:
@@ -8,21 +8,23 @@
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package CreationalPatterns.AbstractFactoryPattern;
+package CreationalPatterns.AbstractFactoryPattern.Color;
+
+import CreationalPatterns.AbstractFactoryPattern.Color.Color;
 
 /**
- * 〈一句话功能简述〉<br>
+ * 〈一句话功能简述〉<br> 
  * 〈〉
  *
  * @author yuxing1994
  * @create 2018/8/9
  * @since 1.0.0
  */
-public class Red implements Color {
+public class Blue implements Color {
 
 
     @Override
     public void name() {
-        System.out.println("red");
+        System.out.println("blue");
     }
 }

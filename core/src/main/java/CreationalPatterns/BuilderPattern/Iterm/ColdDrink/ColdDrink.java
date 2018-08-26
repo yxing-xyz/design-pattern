@@ -25,13 +25,12 @@ import CreationalPatterns.BuilderPattern.Packing.Packing;
 public abstract class ColdDrink implements Iterm {
 
     @Override
-    public abstract String name();
-
-
-    @Override
     public Packing pack() {
         return new Bottle();
     }
+
+    @Override
+    public abstract String name();
 
     @Override
     public abstract float price();

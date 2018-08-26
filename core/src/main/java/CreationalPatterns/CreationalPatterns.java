@@ -1,6 +1,6 @@
-/**
+package CreationalPatterns; /**
  * Copyright (C), 2015-2018, XXX有限公司
- * FileName: Application
+ * FileName: CreationalPatterns.CreationalPatterns
  * Author:   yuxing1994
  * Date:     2018/8/8 23:09
  * Description:
@@ -10,8 +10,14 @@
  */
 
 
-import CreationalPatterns.AbstractFactoryPattern.*;
-import CreationalPatterns.BuilderPattern.BuilderPattern;
+import CreationalPatterns.AbstractFactoryPattern.Factory.AbstractFactory;
+import CreationalPatterns.AbstractFactoryPattern.Factory.FactoryProducer;
+import CreationalPatterns.AbstractFactoryPattern.Factory.LinuxFactory;
+import CreationalPatterns.AbstractFactoryPattern.Linux.Gentoo;
+import CreationalPatterns.AbstractFactoryPattern.Linux.Linux;
+import CreationalPatterns.BuilderPattern.Iterm.Burger.VegBurger;
+import CreationalPatterns.BuilderPattern.Iterm.ColdDrink.Coke;
+import CreationalPatterns.BuilderPattern.Meal.Meal;
 import CreationalPatterns.FactoryPattern.Apple;
 import CreationalPatterns.FactoryPattern.Factory;
 import CreationalPatterns.PrototypePattern.Address;
@@ -30,9 +36,9 @@ import CreationalPatterns.SingletonPattern.SingletonPattern;
  * 6、合成复用原则：尽量使用合成和聚合的方式，而不是使用继承。继承实际上破坏了类的封装性，超类的方法可能会被子类更改。
  */
 
-public class Application {
+public class CreationalPatterns {
     public static void main(String args[]) {
-        prototypePattern();
+        System.out.println("创建型设计模式");
     }
 
     /**
@@ -69,8 +75,11 @@ public class Application {
      * BuilderPattern模式: 链式操作
      */
     public static void builderPattern() {
-        BuilderPattern.Student a = new BuilderPattern.Student.StudentBuilder().setAge(13).setName("LiHua").build();
-        BuilderPattern.Student b = new BuilderPattern.Student.StudentBuilder().setSchool("sc").setSex("Male").setName("ZhangSan").build();
+        Meal.MealBulder mealBulder = new Meal.MealBulder();
+        Meal build = mealBulder.addProduct(new VegBurger()).addProduct(new Coke()).build();
+        build.showIterm();
+        System.out.println("花费: " + build.getCost());
+
     }
 
 

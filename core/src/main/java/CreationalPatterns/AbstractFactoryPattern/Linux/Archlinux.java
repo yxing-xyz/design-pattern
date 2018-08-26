@@ -8,7 +8,7 @@
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package CreationalPatterns.AbstractFactoryPattern;
+package CreationalPatterns.AbstractFactoryPattern.Linux;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -18,7 +18,7 @@ package CreationalPatterns.AbstractFactoryPattern;
  * @create 2018/8/9
  * @since 1.0.0
  */
-public class Archlinux implements Linux{
+public class Archlinux implements Linux {
 
     @Override
     public void kernel() {
