@@ -18,7 +18,7 @@ package CreationalPatterns.BuilderPattern.Iterm.ColdDrink;
  * @create 2018/8/23
  * @since 1.0.0
  */
-public class Coke extends ColdDrink {
+public class Coke extends AbstractColdDrink {
 
     @Override
     public String name() {

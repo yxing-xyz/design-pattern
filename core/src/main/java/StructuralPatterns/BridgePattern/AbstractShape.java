@@ -1,14 +1,14 @@
 /**
  * Copyright (C), 2015-2018, XXX有限公司
- * FileName: Blue
+ * FileName: AbstractShape
  * Author:   yuxing1994
- * Date:     2018/8/9 23:06
+ * Date:     2018/9/1 21:01
  * Description:
  * History:
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package CreationalPatterns.AbstractFactoryPattern.Color;
+package StructuralPatterns.BridgePattern;
 
 
 /**
@@ -16,14 +16,15 @@ package CreationalPatterns.AbstractFactoryPattern.Color;
  * 〈〉
  *
  * @author yuxing1994
- * @create 2018/8/9
+ * @create 2018/9/1
  * @since 1.0.0
  */
-public class Blue implements Color {
+public abstract class AbstractShape {
+    protected DrawAPI drawAPI;
 
+     public AbstractShape(DrawAPI drawAPI) {
+        this.drawAPI = drawAPI;
 
-    @Override
-    public void name() {
-        System.out.println("blue");
     }
+    public abstract void draw();
 }

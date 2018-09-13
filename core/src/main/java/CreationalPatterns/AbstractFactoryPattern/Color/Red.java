@@ -10,7 +10,6 @@
  */
 package CreationalPatterns.AbstractFactoryPattern.Color;
 
-import CreationalPatterns.AbstractFactoryPattern.Color.Color;
 
 /**
  * 〈一句话功能简述〉<br>

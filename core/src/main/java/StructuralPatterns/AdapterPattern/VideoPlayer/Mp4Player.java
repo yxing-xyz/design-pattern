@@ -1,14 +1,14 @@
 /**
  * Copyright (C), 2015-2018, XXX有限公司
- * FileName: VlcPlayer
+ * FileName: Mp4Player
  * Author:   yuxing1994
- * Date:     2018/8/29 20:58
+ * Date:     2018/8/29 20:59
  * Description:
  * History:
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package StructuralPatterns.AdapterPattern.AdvancedMediaPlayer;
+package StructuralPatterns.AdapterPattern.VideoPlayer;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -18,15 +18,11 @@ package StructuralPatterns.AdapterPattern.AdvancedMediaPlayer;
  * @create 2018/8/29
  * @since 1.0.0
  */
-public class VlcPlayer implements AdvancedMediaPlayer {
+
+public class Mp4Player implements VideoPalyer {
 
     @Override
-    public void playVlc(String filename) {
-        System.out.println("Playing vlc file. Name: "+ filename);
-    }
-
-    @Override
-    public void playMp4(String filename) {
-
+    public void play(String filename) {
+        System.out.println("Playing mp4 file. Name: "+ filename);
     }
 }

@@ -1,6 +1,6 @@
 package CreationalPatterns.SingletonPattern; /**
  * Copyright (C), 2015-2018, XXX有限公司
- * FileName: CreationalPatterns.CreationalPatterns.SingletonPattern.SingletonPattern
+ * FileName: Main.Main.SingletonPattern.SingletonPattern
  * Author:   yuxing1994
  * Date:     2018/8/8 23:09
  * Description: 单利模式

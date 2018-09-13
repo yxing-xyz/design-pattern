@@ -10,7 +10,6 @@
  */
 package CreationalPatterns.BuilderPattern.Iterm.Burger;
 
-import CreationalPatterns.BuilderPattern.Iterm.Burger.Burger;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -20,7 +19,7 @@ import CreationalPatterns.BuilderPattern.Iterm.Burger.Burger;
  * @create 2018/8/23
  * @since 1.0.0
  */
-public class ChickenBurger extends Burger {
+public class ChickenBurger extends AbstractBurger {
 
     @Override
     public String name() {

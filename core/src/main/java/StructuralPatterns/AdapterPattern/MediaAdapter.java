@@ -10,10 +10,9 @@
  */
 package StructuralPatterns.AdapterPattern;
 
-import StructuralPatterns.AdapterPattern.AdvancedMediaPlayer.AdvancedMediaPlayer;
-import StructuralPatterns.AdapterPattern.AdvancedMediaPlayer.Mp4Player;
-import StructuralPatterns.AdapterPattern.AdvancedMediaPlayer.VlcPlayer;
-import StructuralPatterns.AdapterPattern.MediaPlayer.MediaPlayer;
+import StructuralPatterns.AdapterPattern.VideoPlayer.VideoPalyer;
+import StructuralPatterns.AdapterPattern.VideoPlayer.Mp4Player;
+import StructuralPatterns.AdapterPattern.VideoPlayer.VlcPlayer;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -23,16 +22,18 @@ import StructuralPatterns.AdapterPattern.MediaPlayer.MediaPlayer;
  * @create 2018/8/29
  * @since 1.0.0
  */
-public class MediaAdapter implements MediaPlayer {
-    AdvancedMediaPlayer vlcPlayer = new VlcPlayer();
-    AdvancedMediaPlayer mp4Player = new Mp4Player();
 
-    @Override
-    public void play(String audioType, String fileName) {
-        if(audioType.equalsIgnoreCase("vlc")){
-            vlcPlayer.playVlc(fileName);
-        }else if(audioType.equalsIgnoreCase("mp4")){
-            mp4Player.playVlc(fileName);
+public class MediaAdapter  {
+    VideoPalyer advancedMusicPlayer;
+    public MediaAdapter(String audioType){
+        if(audioType.equalsIgnoreCase("vlc") ){
+            advancedMusicPlayer = new VlcPlayer();
+        } else if (audioType.equalsIgnoreCase("mp4")){
+            advancedMusicPlayer = new Mp4Player();
         }
+    }
+
+    public void play(String fileName) {
+        advancedMusicPlayer.play(fileName);
     }
 }

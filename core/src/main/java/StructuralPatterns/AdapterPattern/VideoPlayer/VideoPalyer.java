@@ -8,7 +8,7 @@
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package StructuralPatterns.AdapterPattern.AdvancedMediaPlayer;
+package StructuralPatterns.AdapterPattern.VideoPlayer;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -18,7 +18,6 @@ package StructuralPatterns.AdapterPattern.AdvancedMediaPlayer;
  * @create 2018/8/29
  * @since 1.0.0
  */
-public interface AdvancedMediaPlayer {
-    public void playVlc(String filename);
-    public void playMp4(String filename);
+public interface VideoPalyer {
+    public void play(String filename);
 }

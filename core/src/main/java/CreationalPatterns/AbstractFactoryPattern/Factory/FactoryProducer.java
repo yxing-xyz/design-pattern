@@ -10,8 +10,6 @@
  */
 package CreationalPatterns.AbstractFactoryPattern.Factory;
 
-import CreationalPatterns.AbstractFactoryPattern.Factory.AbstractFactory;
-
 /**
  * 〈一句话功能简述〉<br> 
  * 〈〉

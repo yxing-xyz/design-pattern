@@ -10,7 +10,6 @@
  */
 package CreationalPatterns.BuilderPattern.Packing;
 
-import CreationalPatterns.BuilderPattern.Packing.Packing;
 
 /**
  * 〈一句话功能简述〉<br>

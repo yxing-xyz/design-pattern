@@ -1,6 +1,6 @@
 package CreationalPatterns; /**
  * Copyright (C), 2015-2018, XXX有限公司
- * FileName: CreationalPatterns.CreationalPatterns
+ * FileName: Main.Main
  * Author:   yuxing1994
  * Date:     2018/8/8 23:09
  * Description:
@@ -17,6 +17,7 @@ import CreationalPatterns.AbstractFactoryPattern.Linux.Gentoo;
 import CreationalPatterns.AbstractFactoryPattern.Linux.Linux;
 import CreationalPatterns.BuilderPattern.Iterm.Burger.VegBurger;
 import CreationalPatterns.BuilderPattern.Iterm.ColdDrink.Coke;
+import CreationalPatterns.BuilderPattern.Iterm.ColdDrink.Pepsi;
 import CreationalPatterns.BuilderPattern.Meal.Meal;
 import CreationalPatterns.FactoryPattern.Apple;
 import CreationalPatterns.FactoryPattern.Factory;
@@ -26,20 +27,10 @@ import CreationalPatterns.PrototypePattern.School;
 import CreationalPatterns.SingletonPattern.SingletonPattern;
 
 
-/**
- * 设计模式的六个原则
- * 1、开闭原则：对扩展开放、对修改关闭。
- * 2、里氏替换原则：只有当衍生类可以替换掉基类，软件功能不受影响，基类被真正复用，而衍生类也能够在基类上增加行为。
- * 3、依赖倒转原则：开闭原则的基础，对接口编程，依赖于抽象而不依赖具体
- * 4、接口隔离原则：使用多个隔离接口降低耦合
- * 5、迪米特法则：一个实体应当尽量少的与其他实体发生作用，使得系统模块功能相对独立
- * 6、合成复用原则：尽量使用合成和聚合的方式，而不是使用继承。继承实际上破坏了类的封装性，超类的方法可能会被子类更改。
- */
 
-public class CreationalPatterns {
+public class Main {
     public static void main(String args[]) {
-        System.out.println("创建型设计模式");
-    }
+        System.out.println("创建型设计模式"); }
 
     /**
      * 工厂模式
@@ -72,11 +63,11 @@ public class CreationalPatterns {
     }
 
     /**
-     * BuilderPattern模式: 链式操作
+     * 建造者模式
      */
     public static void builderPattern() {
         Meal.MealBulder mealBulder = new Meal.MealBulder();
-        Meal build = mealBulder.addProduct(new VegBurger()).addProduct(new Coke()).build();
+        Meal build = mealBulder.addProduct(new VegBurger()).addProduct(new Pepsi()).build();
         build.showIterm();
         System.out.println("花费: " + build.getCost());
 

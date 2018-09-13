@@ -10,7 +10,6 @@
  */
 package CreationalPatterns.AbstractFactoryPattern.Linux;
 
-import CreationalPatterns.AbstractFactoryPattern.Linux.Linux;
 
 /**
  * 〈一句话功能简述〉<br> 
