@@ -1,3 +1,5 @@
 core/out
 .idea/
 .gradle
+build/
+.vscode
