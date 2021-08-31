@@ -4,25 +4,50 @@
 
 #include "factory_method.h"
 #include <iostream>
+#include <string>
 
-void LeiFeng::Wash() {
-  std::cout << "Wash" << std::endl;
-}
+namespace facotry_method
+{
+    std::string ConcreteProduct1::Operation() const
+    {
+        return "{Result of the ConcreteProduct1}";
+    }
 
-void LeiFeng::Sweep() {
-  std::cout << "Sweep" << std::endl;
-}
+    std::string ConcreteProduct2::Operation() const
+    {
+        return "{Result of the ConcreteProduct2}";
+    }
 
-void LeiFeng::BuyRice() {
-  std::cout << "BuyRice" << std::endl;
-}
+    std::string Creator::SomeOperation() const
+    {
+        Product *product = this->FactoryMethod();
+        std::string result = product->Operation();
+        delete product;
+        return result;
+    }
 
-LeiFeng* UndergraduateFactory::CreateLeiFeng() {
-  LeiFeng* leifeng = new Undergraduate();
-  return leifeng;
-}
+    Product *ConcreteCreator1::FactoryMethod() const
+    {
+        return new ConcreteProduct1();
+    }
 
-LeiFeng* VolunteerFactory::CreateLeiFeng() {
-  LeiFeng* leifeng = new Volunteer();
-  return leifeng;
+    Product *ConcreteCreator2::FactoryMethod() const
+    {
+        return new ConcreteProduct2();
+    }
+
+    void run()
+    {
+        Creator *creator = new ConcreteCreator1();
+        Product *product = creator->FactoryMethod();
+        std::cout << product->Operation() << std::endl;
+        delete creator;
+        delete product;
+
+        creator = new ConcreteCreator2();
+        product = creator->FactoryMethod();
+        std::cout << product->Operation() << std::endl;
+        delete creator;
+        delete product;
+    }
 }

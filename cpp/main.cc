@@ -1,8 +1,24 @@
 #include <iostream>
 #include <fstream>
+#include "factory_method.h"
+
+void test_factory() {
+    Creator *creator = new ConcreteCreator1();
+    Product *product = creator->FactoryMethod();
+    std::cout << product->Operation() << std::endl;
+    delete creator;
+    delete product;
+
+    creator = new ConcreteCreator2();
+    product = creator->FactoryMethod();
+    std::cout << product->Operation() << std::endl;
+    delete creator;
+    delete product;
+}
 
 int main(int argc, char *argv[])
 {
+    test_factory();
     return 0;
 }
 
