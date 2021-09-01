@@ -40,3 +40,11 @@ int main(int argc, char *argv[])
    代码: 局部变量、方法的参数或者对静态方法的调用
 
 */
+
+/* SOLID
+单一职责原则The Single-Responsibility Principle (SRP): 一个类仅有一个引起它变化的原因。虽然这一原则明确是在说类的设计，但是实际中在一个模块或者一个方法上同样适用.
+开放封闭原则The Open/Closed Principle (OCP): 开放闭合原则同样适用于类、模块和方法等，它强调对扩展开放，对修改闭合。看起来说了两点实际上就是一点：为了适应新的需求，尽量不要修改原始代码，而是扩展原有的代码。
+里氏替换原则The Liskov Substitution Principle (LSP):子类型必须能够替换它的基类型。OCP的实现机制是抽象和多态，而它们的关键是继承。LSP所强调的就是继承的实现规则。
+接口隔离原则The Interface Segregation Principle (ISP):客户端不应该被迫依赖于它不会用到的方法。
+依赖导致原则he Dependency-Inversion Principle (DIP): 高层模块不应该依赖低层模块，两者都应该依赖其抽象；抽象不应该依赖细节，细节应该依赖于抽象。
+ */
