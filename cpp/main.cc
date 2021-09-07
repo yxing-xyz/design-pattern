@@ -1,24 +1,51 @@
 #include <iostream>
 #include <fstream>
 #include "factory_method.h"
+#include "abstract_factory.h"
 
-void test_factory() {
-    Creator *creator = new ConcreteCreator1();
-    Product *product = creator->FactoryMethod();
-    std::cout << product->Operation() << std::endl;
-    delete creator;
-    delete product;
+// 工厂模式
+// 简单工厂模式： 描述一个类拥有条件语句根据参数返回产品，我的理解是将工厂模式的工厂放在一个类，然后根据不同的参数返回产品。
+namespace facotry_method {
+    void run() {
+        Creator *creator = new ConcreteCreator1();
+        Product *product = creator->FactoryMethod();
+        std::cout << product->Operation() << std::endl;
+        delete creator;
+        delete product;
 
-    creator = new ConcreteCreator2();
-    product = creator->FactoryMethod();
-    std::cout << product->Operation() << std::endl;
-    delete creator;
-    delete product;
+        creator = new ConcreteCreator2();
+        product = creator->FactoryMethod();
+        std::cout << product->Operation() << std::endl;
+        delete creator;
+        delete product;
+    }
+}
+
+// 抽象工厂模式
+namespace abstract_factory {
+    void ClientCode(abstract_factory::AbstractFactory &f) {
+        // 剥离掉了工厂模式创建的风格（泛化），保留产品的职责，使职责更加单一函数更加清晰
+        const AbstractProductA *productA = f.CreateProductA();
+        const AbstractProductB *productB = f.CreateProductB();
+        std::cout<<productB->UsefulFunctionB() << std::endl;
+        std::cout<<productB->AnotherUsefulFunctionB(*productA) << std::endl;
+        delete productA;
+        delete productB;
+    }
+    void run() {
+        ConcreteFactory1 *f1 = new ConcreteFactory1();
+        ClientCode(*f1);
+        delete f1;
+        ConcreteFactory2 *f2 = new ConcreteFactory2();
+        ClientCode(*f2);
+        delete f2;
+    }
 }
 
 int main(int argc, char *argv[])
 {
-    test_factory();
+    // facotry_method::run();
+    abstract_factory::run();
     return 0;
 }
 

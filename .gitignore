@@ -6,3 +6,4 @@ cpp/build/
 .vscode
 cpp/.cache
 cpp/a.out
+cpp/compile_commands.json
