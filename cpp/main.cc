@@ -2,6 +2,7 @@
 #include <fstream>
 #include "factory_method.h"
 #include "abstract_factory.h"
+#include "builder.h"
 
 // 工厂模式
 // 简单工厂模式： 描述一个类拥有条件语句根据参数返回产品，我的理解是将工厂模式的工厂放在一个类，然后根据不同的参数返回产品。
@@ -23,7 +24,7 @@ namespace facotry_method {
 
 // 抽象工厂模式
 namespace abstract_factory {
-    void ClientCode(abstract_factory::AbstractFactory &f) {
+    void ClientCode(AbstractFactory &f) {
         // 剥离掉了工厂模式创建的风格（泛化），保留产品的职责，使职责更加单一函数更加清晰
         const AbstractProductA *productA = f.CreateProductA();
         const AbstractProductB *productB = f.CreateProductB();
@@ -42,10 +43,46 @@ namespace abstract_factory {
     }
 }
 
+// 生成器模式
+namespace builder {
+    void ClientCode(Director &director) {
+        ConcreteBuilder1 *builder = new ConcreteBuilder1();
+        director.SetBuilder(builder);
+        std::cout << "Standard basic product:\n";
+        director.BuildMinimalViableProduct();
+        Product1 *p = builder->GetProduct();
+        p->ListParts();
+        delete p;
+
+        std::cout << "Standard full featured product:\n";
+        director.BuildFullFeaturedProduct();
+
+        p= builder->GetProduct();
+        p->ListParts();
+        delete p;
+
+        // Remember, the Builder pattern can be used without a Director class.
+        std::cout << "Custom product:\n";
+        builder->ProducePartA();
+        builder->ProducePartC();
+        p=builder->GetProduct();
+        p->ListParts();
+        delete p;
+
+        delete builder;
+    }
+    void run() {
+        Director *director = new Director();
+        ClientCode(*director);
+        delete director;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // facotry_method::run();
-    abstract_factory::run();
+    // abstract_factory::run();
+    builder::run();
     return 0;
 }
 
