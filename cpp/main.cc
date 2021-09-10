@@ -3,6 +3,7 @@
 #include "factory_method.h"
 #include "abstract_factory.h"
 #include "builder.h"
+#include "prototype.h"
 
 // 工厂模式
 // 简单工厂模式： 描述一个类拥有条件语句根据参数返回产品，我的理解是将工厂模式的工厂放在一个类，然后根据不同的参数返回产品。
@@ -78,12 +79,36 @@ namespace builder {
     }
 }
 
+// 原型模式
+namespace prototype{
+    void Client(PrototypeFactory &prototype_factory)
+    {
+        std::cout << "let's create  Prototype 1" << std::endl;
+        Prototype *prototype = prototype_factory.CreatePrototype(Type::PROTOTYPE_1);
+        prototype->Method(90);
+        delete prototype;
+
+        std::cout << "let's create  Prototype 2" << std::endl;
+
+        prototype = prototype_factory.CreatePrototype(Type::PROTOTYPE_2);
+        prototype->Method(10);
+        delete prototype;
+
+    }
+
+    void run(){
+        PrototypeFactory *prototype_factory = new PrototypeFactory();
+        Client(*prototype_factory);
+
+        delete prototype_factory;
+    }
+}
 int main(int argc, char *argv[])
 {
     // facotry_method::run();
     // abstract_factory::run();
-    builder::run();
-    return 0;
+    // builder::run();
+    prototype::run();
 }
 
 

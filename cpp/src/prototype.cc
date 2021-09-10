@@ -4,57 +4,62 @@
 
 #include "prototype.h"
 #include <iostream>
+#include <string>
 
-void WorkExperience::SetCompany(std::string company) {
-  company_ = company;
-}
+namespace prototype
+{
+    Prototype::Prototype() {}
+    Prototype::~Prototype() {}
+    void Prototype::Method(float prototype_field)
+    {
+        this->prototype_field_ = prototype_field;
+        std::cout << "Call Method from " << prototype_name_ << " with field : " << this->prototype_field_ << std::endl;
+    }
+    Prototype *ConcretePrototype1::Clone() const
+    {
+        return new ConcretePrototype1(*this);
+    }
 
-void WorkExperience::SetTimeArea(std::string time_area) {
-  time_area_ = time_area;
-}
+    Prototype *ConcretePrototype2::Clone() const
+    {
+        return new ConcretePrototype2(*this);
+    }
 
-std::string WorkExperience::GetCompany() {
-  return company_;
-}
+    PrototypeFactory::PrototypeFactory()
+    {
+        prototypes_[Type::PROTOTYPE_1] = new ConcretePrototype1("PROTOTYPE_1", 50.f);
+        prototypes_[Type::PROTOTYPE_2] = new ConcretePrototype1("PROTOTYPE_2", 60.f);
+    }
+    PrototypeFactory::~PrototypeFactory()
+    {
+        delete prototypes_[Type::PROTOTYPE_1];
+        delete prototypes_[Type::PROTOTYPE_2];
+    }
 
-std::string WorkExperience::GetTimeArea() {
-  return time_area_;
-}
+    Prototype *PrototypeFactory::CreatePrototype(Type type)
+    {
+        return prototypes_[type]->Clone();
+    }
 
-WorkExperience* WorkExperience::Clone() {
-  WorkExperience* new_work_experience = new WorkExperience();
-  new_work_experience->SetCompany(company_);
-  new_work_experience->SetTimeArea(time_area_);
-  return new_work_experience;
-}
+    void Client(PrototypeFactory &prototype_factory)
+    {
+        std::cout << "let's create  Prototype 1" << std::endl;
+        Prototype *prototype = prototype_factory.CreatePrototype(Type::PROTOTYPE_1);
+        prototype->Method(90);
+        delete prototype;
 
-Resume::Resume(std::string name) {
-  name_ = name;
-  work_experience_ = new WorkExperience();
-}
+        std::cout << "let's create  Prototype 2" << std::endl;
 
-Resume::~Resume() {
-  delete work_experience_;
-}
+        prototype = prototype_factory.CreatePrototype(Type::PROTOTYPE_2);
+        prototype->Method(10);
+        delete prototype;
+    }
 
-void Resume::SetPersonalInfo(std::string sex, std::string age){
-  sex_ = sex;
-  age_ = age;
-}
+    void run()
+    {
+        PrototypeFactory *prototype_factory = new PrototypeFactory();
+        Client(*prototype_factory);
 
-void Resume::SetWorkExperience(std::string company, std::string time_area) {
-  work_experience_->SetCompany(company);
-  work_experience_->SetTimeArea(time_area);
-}
-
-Resume* Resume::Clone() {
-  Resume* new_resume = new Resume(name_);
-  new_resume->SetPersonalInfo(sex_, age_);
-  new_resume->work_experience_ = work_experience_->Clone();
-  return new_resume;
-}
-
-void Resume::PrintResume() {
-  std::cout<< name_ << ", " << sex_ << ", " << age_ << ", "
-           << work_experience_->GetCompany() << " : " << work_experience_->GetTimeArea() << std::endl;
+        delete prototype_factory;
+    }
 }
