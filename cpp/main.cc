@@ -1,9 +1,12 @@
 #include <iostream>
 #include <fstream>
+#include <thread>
+
 #include "factory_method.h"
 #include "abstract_factory.h"
 #include "builder.h"
 #include "prototype.h"
+#include "singleton.h"
 
 // 工厂模式
 // 简单工厂模式： 描述一个类拥有条件语句根据参数返回产品，我的理解是将工厂模式的工厂放在一个类，然后根据不同的参数返回产品。
@@ -103,12 +106,41 @@ namespace prototype{
         delete prototype_factory;
     }
 }
+
+// 单例模式
+
+namespace singleton {
+    void ThreadFoo(){
+        // Following code emulates slow initialization.
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        Singleton* singleton = Singleton::GetInstance("FOO");
+        std::cout << singleton->value() << "\n";
+    }
+
+    void ThreadBar(){
+        // Following code emulates slow initialization.
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        Singleton* singleton = Singleton::GetInstance("BAR");
+        std::cout << singleton->value() << "\n";
+    }
+    void run() {
+        std::cout <<"If you see the same value, then singleton was reused (yay!\n" <<
+            "If you see different values, then 2 singletons were created (booo!!)\n\n" <<
+            "RESULT:\n";
+        std::thread t1(ThreadFoo);
+        std::thread t2(ThreadBar);
+        t1.join();
+        t2.join();
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // facotry_method::run();
     // abstract_factory::run();
     // builder::run();
-    prototype::run();
+    // prototype::run();
+    singleton::run();
 }
 
 
