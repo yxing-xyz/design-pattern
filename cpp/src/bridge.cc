@@ -1,38 +1,61 @@
-//
-// Created by Jennica on 2016/12/29.
-//
 
 #include "bridge.h"
 #include <iostream>
+#include <string>
+namespace bridge
+{
+  Implementation::~Implementation() {}
 
-void HandsetGame::run() {
-  std::cout << "run game" << std::endl;
-}
+  std::string ConcreteImplementationA::OperationImplementation() const
+  {
+    return "ConcreteImplementationA: Here's the result on the platform A.\n";
+  }
 
-void HandsetAddressList::run() {
-  std::cout << "run address list" << std::endl;
-}
+  std::string ConcreteImplementationB::OperationImplementation() const
+  {
+    return "ConcreteImplementationB: Here's the result on the platform B.\n";
+  }
 
-HandsetBrand::HandsetBrand(HandsetSoft *handset_soft): handset_soft_(handset_soft) {}
+  Abstraction::Abstraction(Implementation *implementation) : implementation_(implementation)
+  {
+  }
+  Abstraction::~Abstraction() {}
+  std::string Abstraction::Operation() const
+  {
+    return "Abstraction: Base operation with:\n" +
+           this->implementation_->OperationImplementation();
+  }
+  ExtendedAbstraction::ExtendedAbstraction(Implementation *implementation) : Abstraction(implementation)
+  {
+  }
 
-HandsetBrandM::HandsetBrandM(HandsetSoft *handset_soft): HandsetBrand(handset_soft) {}
+  std::string ExtendedAbstraction::Operation() const
+  {
+    return "ExtendedAbstraction: Extended operation with:\n" +
+           this->implementation_->OperationImplementation();
+  }
 
-HandsetBrandM::~HandsetBrandM() {
-  delete handset_soft_;
-}
+  void ClientCode(const Abstraction &abstraction)
+  {
+    // ...
+    std::cout << abstraction.Operation();
+    // ...
+  }
 
-void HandsetBrandM::run() {
-  std::cout << "handset brand M: ";
-  handset_soft_->run();
-}
+  void run()
+  {
+    Implementation *implementation = new ConcreteImplementationA;
+    Abstraction *abstraction = new Abstraction(implementation);
+    ClientCode(*abstraction);
+    std::cout << std::endl;
+    delete implementation;
+    delete abstraction;
 
-HandsetBrandN::HandsetBrandN(HandsetSoft *handset_soft): HandsetBrand(handset_soft) {}
+    implementation = new ConcreteImplementationB;
+    abstraction = new ExtendedAbstraction(implementation);
+    ClientCode(*abstraction);
 
-HandsetBrandN::~HandsetBrandN() {
-  delete handset_soft_;
-}
-
-void HandsetBrandN::run() {
-  std::cout << "handset brand N: ";
-  handset_soft_->run();
+    delete implementation;
+    delete abstraction;
+  }
 }

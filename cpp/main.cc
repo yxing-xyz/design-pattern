@@ -8,6 +8,7 @@
 #include "prototype.h"
 #include "singleton.h"
 #include "adapter.h"
+#include "bridge.h"
 
 // 工厂模式
 // 简单工厂模式： 描述一个类拥有条件语句根据参数返回产品，我的理解是将工厂模式的工厂放在一个类，然后根据不同的参数返回产品。
@@ -176,6 +177,33 @@ namespace adapter
         delete adapter;
     }
 }
+// 桥接模式
+namespace bridge
+{
+    void ClientCode(const Abstraction &abstraction)
+    {
+        // ...
+        std::cout << abstraction.Operation();
+        // ...
+    }
+
+    void run()
+    {
+        Implementation *implementation = new ConcreteImplementationA;
+        Abstraction *abstraction = new Abstraction(implementation);
+        ClientCode(*abstraction);
+        std::cout << std::endl;
+        delete implementation;
+        delete abstraction;
+
+        implementation = new ConcreteImplementationB;
+        abstraction = new ExtendedAbstraction(implementation);
+        ClientCode(*abstraction);
+
+        delete implementation;
+        delete abstraction;
+    }
+}
 int main(int argc, char *argv[])
 {
     // facotry_method::run();
@@ -183,7 +211,8 @@ int main(int argc, char *argv[])
     // builder::run();
     // prototype::run();
     // singleton::run();
-    adapter::run();
+    // adapter::run();
+    bridge::run();
 }
 
 /* 类图关系:
