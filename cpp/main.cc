@@ -7,11 +7,14 @@
 #include "builder.h"
 #include "prototype.h"
 #include "singleton.h"
+#include "adapter.h"
 
 // 工厂模式
 // 简单工厂模式： 描述一个类拥有条件语句根据参数返回产品，我的理解是将工厂模式的工厂放在一个类，然后根据不同的参数返回产品。
-namespace facotry_method {
-    void run() {
+namespace facotry_method
+{
+    void run()
+    {
         Creator *creator = new ConcreteCreator1();
         Product *product = creator->FactoryMethod();
         std::cout << product->Operation() << std::endl;
@@ -27,17 +30,20 @@ namespace facotry_method {
 }
 
 // 抽象工厂模式
-namespace abstract_factory {
-    void ClientCode(AbstractFactory &f) {
+namespace abstract_factory
+{
+    void ClientCode(AbstractFactory &f)
+    {
         // 剥离掉了工厂模式创建的风格（泛化），保留产品的职责，使职责更加单一函数更加清晰
         const AbstractProductA *productA = f.CreateProductA();
         const AbstractProductB *productB = f.CreateProductB();
-        std::cout<<productB->UsefulFunctionB() << std::endl;
-        std::cout<<productB->AnotherUsefulFunctionB(*productA) << std::endl;
+        std::cout << productB->UsefulFunctionB() << std::endl;
+        std::cout << productB->AnotherUsefulFunctionB(*productA) << std::endl;
         delete productA;
         delete productB;
     }
-    void run() {
+    void run()
+    {
         ConcreteFactory1 *f1 = new ConcreteFactory1();
         ClientCode(*f1);
         delete f1;
@@ -48,8 +54,10 @@ namespace abstract_factory {
 }
 
 // 生成器模式
-namespace builder {
-    void ClientCode(Director &director) {
+namespace builder
+{
+    void ClientCode(Director &director)
+    {
         ConcreteBuilder1 *builder = new ConcreteBuilder1();
         director.SetBuilder(builder);
         std::cout << "Standard basic product:\n";
@@ -61,7 +69,7 @@ namespace builder {
         std::cout << "Standard full featured product:\n";
         director.BuildFullFeaturedProduct();
 
-        p= builder->GetProduct();
+        p = builder->GetProduct();
         p->ListParts();
         delete p;
 
@@ -69,13 +77,14 @@ namespace builder {
         std::cout << "Custom product:\n";
         builder->ProducePartA();
         builder->ProducePartC();
-        p=builder->GetProduct();
+        p = builder->GetProduct();
         p->ListParts();
         delete p;
 
         delete builder;
     }
-    void run() {
+    void run()
+    {
         Director *director = new Director();
         ClientCode(*director);
         delete director;
@@ -83,7 +92,8 @@ namespace builder {
 }
 
 // 原型模式
-namespace prototype{
+namespace prototype
+{
     void Client(PrototypeFactory &prototype_factory)
     {
         std::cout << "let's create  Prototype 1" << std::endl;
@@ -96,10 +106,10 @@ namespace prototype{
         prototype = prototype_factory.CreatePrototype(Type::PROTOTYPE_2);
         prototype->Method(10);
         delete prototype;
-
     }
 
-    void run(){
+    void run()
+    {
         PrototypeFactory *prototype_factory = new PrototypeFactory();
         Client(*prototype_factory);
 
@@ -109,24 +119,28 @@ namespace prototype{
 
 // 单例模式
 
-namespace singleton {
-    void ThreadFoo(){
+namespace singleton
+{
+    void ThreadFoo()
+    {
         // Following code emulates slow initialization.
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        Singleton* singleton = Singleton::GetInstance("FOO");
+        Singleton *singleton = Singleton::GetInstance("FOO");
         std::cout << singleton->value() << "\n";
     }
 
-    void ThreadBar(){
+    void ThreadBar()
+    {
         // Following code emulates slow initialization.
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        Singleton* singleton = Singleton::GetInstance("BAR");
+        Singleton *singleton = Singleton::GetInstance("BAR");
         std::cout << singleton->value() << "\n";
     }
-    void run() {
-        std::cout <<"If you see the same value, then singleton was reused (yay!\n" <<
-            "If you see different values, then 2 singletons were created (booo!!)\n\n" <<
-            "RESULT:\n";
+    void run()
+    {
+        std::cout << "If you see the same value, then singleton was reused (yay!\n"
+                  << "If you see different values, then 2 singletons were created (booo!!)\n\n"
+                  << "RESULT:\n";
         std::thread t1(ThreadFoo);
         std::thread t2(ThreadBar);
         t1.join();
@@ -134,15 +148,43 @@ namespace singleton {
     }
 }
 
+// 适配器模式
+namespace adapter
+{
+    void ClientCode(const Target *target)
+    {
+        std::cout << target->Request() << std::endl;
+    }
+
+    void run()
+    {
+        std::cout << "Client: I can work just fine with the Target objects:\n";
+        Target *target = new Target;
+        ClientCode(target);
+        std::cout << "\n\n";
+        Adaptee *adaptee = new Adaptee;
+        std::cout << "Client: The Adaptee class has a weird interface. See, I don't understand it:\n";
+        std::cout << "Adaptee: " << adaptee->SpecificRequest();
+        std::cout << "\n\n";
+        std::cout << "Client: But I can work with it via the Adapter:\n";
+        Adapter *adapter = new Adapter(adaptee);
+        ClientCode(adapter);
+        std::cout << "\n";
+
+        delete target;
+        delete adaptee;
+        delete adapter;
+    }
+}
 int main(int argc, char *argv[])
 {
     // facotry_method::run();
     // abstract_factory::run();
     // builder::run();
     // prototype::run();
-    singleton::run();
+    // singleton::run();
+    adapter::run();
 }
-
 
 /* 类图关系:
 
