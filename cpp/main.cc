@@ -10,6 +10,7 @@
 #include "adapter.h"
 #include "bridge.h"
 #include "composite.h"
+#include "decorator.h"
 
 // 工厂模式
 // 简单工厂模式： 描述一个类拥有条件语句根据参数返回产品，我的理解是将工厂模式的工厂放在一个类，然后根据不同的参数返回产品。
@@ -208,20 +209,24 @@ namespace bridge
 }
 
 // 组合模式
-namespace composite {
+namespace composite
+{
     void ClientCode(const Component *component)
     {
         std::cout << "RESULT: " << component->Operation();
     }
-    void ClientCode2(Component *component1, Component *component2) {
+    void ClientCode2(Component *component1, Component *component2)
+    {
         // ...
-        if (component1->IsComposite()) {
+        if (component1->IsComposite())
+        {
             component1->Add(component2);
         }
         std::cout << "RESULT: " << component1->Operation();
         // ...
     }
-    void run () {
+    void run()
+    {
         Component *simple = new Leaf;
         std::cout << "Client: I've got a simple component:\n";
         ClientCode(simple);
@@ -234,6 +239,7 @@ namespace composite {
         Component *branch1 = new Composite;
 
         Component *leaf_1 = new Leaf;
+
         Component *leaf_2 = new Leaf;
         Component *leaf_3 = new Leaf;
         branch1->Add(leaf_1);
@@ -259,6 +265,37 @@ namespace composite {
         delete leaf_3;
     }
 }
+
+// 装饰器模式
+namespace decorator {
+    void ClientCode(Component* component) {
+        // ...
+        std::cout << "RESULT: " << component->Operation();
+        // ...
+    }
+    void run() {
+        Component* simple = new ConcreteComponent;
+        std::cout << "Client: I've got a simple component:\n";
+        ClientCode(simple);
+        std::cout << "\n\n";
+        /**
+         * ...as well as decorated ones.
+         *
+         * Note how decorators can wrap not only simple components but the other
+         * decorators as well.
+         */
+        Component* decorator1 = new ConcreteDecoratorA(simple);
+        Component* decorator2 = new ConcreteDecoratorB(decorator1);
+        std::cout << "Client: Now I've got a decorated component:\n";
+        ClientCode(decorator2);
+        std::cout << "\n";
+
+        delete simple;
+        delete decorator1;
+        delete decorator2;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // facotry_method::run();
@@ -268,8 +305,8 @@ int main(int argc, char *argv[])
     // singleton::run();
     // adapter::run();
     // bridge::run();
-    composite::run();
-
+    // composite::run();
+    decorator::run();
 }
 
 /* 类图关系:

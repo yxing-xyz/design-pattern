@@ -1,33 +1,76 @@
-//
-// Created by Jennica on 2016/12/29.
-//
-
 #include "decorator.h"
 #include <iostream>
 
-void Person::Show() {
-  std::cout << "person" << std::endl;
-}
+namespace decorator
+{
+    Component::~Component() {}
 
-Finery::Finery(Person *component): component_(component) {}
+    std::string ConcreteComponent::Operation() const
+    {
+        return "ConcreteComponent";
+    }
 
-Tie::Tie(Person *component): Finery(component) {}
+    Decorator::Decorator(Component *component) : component_(component)
+    {
+    }
 
-void Tie::Show() {
-  std::cout << "tie ";
-  component_->Show();
-}
+    std::string Decorator::Operation() const
+    {
+        return this->component_->Operation();
+    }
 
-Suit::Suit(Person *component): Finery(component) {}
+    ConcreteDecoratorA::ConcreteDecoratorA(Component *component) : Decorator(component)
+    {
+    }
 
-void Suit::Show() {
-  std::cout << "suit ";
-  component_->Show();
-}
+    ConcreteDecoratorA::~ConcreteDecoratorA()
+    {
+    }
 
-Shoes::Shoes(Person *component): Finery(component) {}
+    std::string ConcreteDecoratorA::Operation() const
+    {
+        return "ConcreteDecoratorA(" + Decorator::Operation() + ")";
+    }
 
-void Shoes::Show() {
-  std::cout << "shoes ";
-  component_->Show();
+    ConcreteDecoratorB::ConcreteDecoratorB(Component *component) : Decorator(component)
+    {
+    }
+
+    ConcreteDecoratorB::~ConcreteDecoratorB()
+    {
+    }
+
+    std::string ConcreteDecoratorB::Operation() const
+    {
+        return "ConcreteDecoratorB(" + Decorator::Operation() + ")";
+    }
+
+    void ClientCode(Component *component)
+    {
+        // ...
+        std::cout << "RESULT: " << component->Operation();
+        // ...
+    }
+    void run()
+    {
+        Component *simple = new ConcreteComponent;
+        std::cout << "Client: I've got a simple component:\n";
+        ClientCode(simple);
+        std::cout << "\n\n";
+        /**
+         * ...as well as decorated ones.
+         *
+         * Note how decorators can wrap not only simple components but the other
+         * decorators as well.
+         */
+        Component *decorator1 = new ConcreteDecoratorA(simple);
+        Component *decorator2 = new ConcreteDecoratorB(decorator1);
+        std::cout << "Client: Now I've got a decorated component:\n";
+        ClientCode(decorator2);
+        std::cout << "\n";
+
+        delete simple;
+        delete decorator1;
+        delete decorator2;
+    }
 }
