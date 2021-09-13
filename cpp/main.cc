@@ -9,6 +9,7 @@
 #include "singleton.h"
 #include "adapter.h"
 #include "bridge.h"
+#include "composite.h"
 
 // 工厂模式
 // 简单工厂模式： 描述一个类拥有条件语句根据参数返回产品，我的理解是将工厂模式的工厂放在一个类，然后根据不同的参数返回产品。
@@ -28,6 +29,7 @@ namespace facotry_method
         delete creator;
         delete product;
     }
+
 }
 
 // 抽象工厂模式
@@ -204,6 +206,59 @@ namespace bridge
         delete abstraction;
     }
 }
+
+// 组合模式
+namespace composite {
+    void ClientCode(const Component *component)
+    {
+        std::cout << "RESULT: " << component->Operation();
+    }
+    void ClientCode2(Component *component1, Component *component2) {
+        // ...
+        if (component1->IsComposite()) {
+            component1->Add(component2);
+        }
+        std::cout << "RESULT: " << component1->Operation();
+        // ...
+    }
+    void run () {
+        Component *simple = new Leaf;
+        std::cout << "Client: I've got a simple component:\n";
+        ClientCode(simple);
+        std::cout << "\n\n";
+        /**
+         * ...as well as the complex composites.
+         */
+
+        Component *tree = new Composite;
+        Component *branch1 = new Composite;
+
+        Component *leaf_1 = new Leaf;
+        Component *leaf_2 = new Leaf;
+        Component *leaf_3 = new Leaf;
+        branch1->Add(leaf_1);
+        branch1->Add(leaf_2);
+        Component *branch2 = new Composite;
+        branch2->Add(leaf_3);
+        tree->Add(branch1);
+        tree->Add(branch2);
+        std::cout << "Client: Now I've got a composite tree:\n";
+        ClientCode(tree);
+        std::cout << "\n\n";
+
+        std::cout << "Client: I don't need to check the components classes even when managing the tree:\n";
+        ClientCode2(tree, simple);
+        std::cout << "\n";
+
+        delete simple;
+        delete tree;
+        delete branch1;
+        delete branch2;
+        delete leaf_1;
+        delete leaf_2;
+        delete leaf_3;
+    }
+}
 int main(int argc, char *argv[])
 {
     // facotry_method::run();
@@ -212,7 +267,9 @@ int main(int argc, char *argv[])
     // prototype::run();
     // singleton::run();
     // adapter::run();
-    bridge::run();
+    // bridge::run();
+    composite::run();
+
 }
 
 /* 类图关系:
