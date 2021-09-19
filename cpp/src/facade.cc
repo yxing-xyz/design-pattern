@@ -5,50 +5,59 @@
 #include "facade.h"
 #include <iostream>
 
-void Stock1::Buy() {
-  std::cout << "buy stock1" << std::endl;
-}
+namespace facacde
+{
+    std::string Subsystem1::Operation1() const
+    {
+        return "Subsystem1: Ready!\n";
+    }
 
-void Stock1::Sell() {
-  std::cout << "sell stock1" << std::endl;
-}
+    std::string Subsystem1::OperationN() const
+    {
+        return "Subsystem1: Go!\n";
+    }
 
-void Stock2::Buy() {
-  std::cout << "buy stock2" << std::endl;
-}
+    std::string Subsystem2::Operation1() const
+    {
+        return "Subsystem2: Get ready!\n";
+    }
 
-void Stock2::Sell() {
-  std::cout << "sell stock2" << std::endl;
-}
+    std::string Subsystem2::OperationZ() const
+    {
+        return "Subsystem2: Fire!\n";
+    }
 
-void Reality1::Buy() {
-  std::cout << "buy reality1" << std::endl;
-}
+    Facade::Facade(Subsystem1 *subsystem1, Subsystem2 *subsystem2)
+    {
+        this->subsystem1_ = subsystem1 ?: new Subsystem1();
+        this->subsystem2_ = subsystem2 ?: new Subsystem2();
+    }
+    Facade::~Facade()
+    {
+        delete this->subsystem1_;
+        delete this->subsystem2_;
+    }
+    std::string Facade::Operation() const
+    {
+        std::string result = "Facade initializes subsystems:\n";
+        result += this->subsystem1_->Operation1();
+        result += this->subsystem2_->Operation1();
+        result += "Facade orders subsystems to perform the action:\n";
+        result += this->subsystem1_->OperationN();
+        result += this->subsystem2_->OperationZ();
+        return result;
+    }
+    void ClientCode(Facade *facade)
+    {
+        std::cout << facade->Operation() << std::endl;
+    }
+    void run()
+    {
+        Subsystem1 *subsystem1 = new Subsystem1;
+        Subsystem2 *subsystem2 = new Subsystem2;
+        Facade *facade = new Facade(subsystem1, subsystem2);
+        ClientCode(facade);
 
-void Reality1::Sell() {
-  std::cout << "sell reality1" << std::endl;
-}
-
-Fund::Fund() {
-  stock1_ = new Stock1;
-  stock2_ = new Stock2;
-  reality1_ = new Reality1;
-} 
-
-Fund::~Fund() {
-  delete stock1_;
-  delete stock2_;
-  delete reality1_;
-}
-
-void Fund::BuyFund() {
-  stock1_->Buy();
-  stock2_->Buy();
-  reality1_->Buy();
-}
-
-void Fund::SellFund() {
-  stock1_->Sell();
-  stock2_->Sell();
-  reality1_->Sell();
+        delete facade;
+    }
 }
