@@ -3,4 +3,4 @@ core/out
 .gradle
 build/
 cpp/build/
-.vscode
+cpp/.cache
