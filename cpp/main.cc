@@ -12,6 +12,7 @@
 #include "composite.h"
 #include "decorator.h"
 #include "facade.h"
+#include "flyweight.h"
 
 
 int main(int argc, char *argv[])
@@ -26,7 +27,8 @@ int main(int argc, char *argv[])
     // bridge::run();              // 桥接模式
     // composite::run();           // 组合模式
     // decorator::run();           // 装饰器模式
-    facacde::run();                // 外观模式(门面模式)
+    // facacde::run();             // 外观模式(门面模式)
+    flyweight::run();           // 享元模式
 }
 
 /* 类图关系:
