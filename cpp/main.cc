@@ -13,7 +13,7 @@
 #include "decorator.h"
 #include "facade.h"
 #include "flyweight.h"
-
+#include "proxy.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,7 +28,8 @@ int main(int argc, char *argv[])
     // composite::run();           // 组合模式
     // decorator::run();           // 装饰器模式
     // facacde::run();             // 外观模式(门面模式)
-    flyweight::run();           // 享元模式
+    // flyweight::run();           // 享元模式
+    // proxy::run();               // 代理模式
 }
 
 /* 类图关系:

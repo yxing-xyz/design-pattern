@@ -3,37 +3,59 @@
 //
 
 #include "proxy.h"
+#include <iostream>
 
-SchoolGirl::SchoolGirl(std::string name): name_(name) {
-}
+namespace proxy
+{
+  void RealSubject::Request() const
+  {
+    std::cout << "RealSubject: Handling request.\n";
+  }
+  bool Proxy::CheckAccess() const
+  {
+    // Some real checks should go here.
+    std::cout << "Proxy: Checking access prior to firing a real request.\n";
+    return true;
+  }
 
-std::string SchoolGirl::GetName() {
-  return name_;
-}
+  void Proxy::LogAccess() const
+  {
+    std::cout << "Proxy: Logging the time of request.\n";
+  }
 
-Pursuit::Pursuit(SchoolGirl *school_girl): school_girl_(school_girl){
-}
+  Proxy::Proxy(RealSubject *real_subject) : real_subject_(new RealSubject(*real_subject))
+  {
+  }
+  Proxy::~Proxy() {
+    delete this->real_subject_;
+  }
+  void Proxy::Request() const
+  {
+    if (this->CheckAccess())
+    {
+      this->real_subject_->Request();
+      this->LogAccess();
+    }
+  }
 
-void Pursuit::GiveFlowers() {
-  std::cout << "Give flowers to " << school_girl_->GetName() << std::endl;
-}
+  void ClientCode(const Subject &subject)
+  {
+    // ...
+    subject.Request();
+    // ...
+  }
 
-void Pursuit::GiveDolls() {
-  std::cout << "Give dolls to " << school_girl_->GetName() << std::endl;
-}
+  void run()
+  {
+    std::cout << "Client: Executing the client code with a real subject:\n";
+    RealSubject *real_subject = new RealSubject;
+    ClientCode(*real_subject);
+    std::cout << "\n";
+    std::cout << "Client: Executing the same client code with a proxy:\n";
+    Proxy *proxy = new Proxy(real_subject);
+    ClientCode(*proxy);
 
-Proxy::Proxy(SchoolGirl *school_girl) {
-  pursuit_ = new Pursuit(school_girl);
-}
-
-Proxy::~Proxy() {
-  delete pursuit_;
-}
-
-void Proxy::GiveFlowers() {
-  pursuit_->GiveFlowers();
-}
-
-void Proxy::GiveDolls() {
-  pursuit_->GiveDolls();
+    delete real_subject;
+    delete proxy;
+  }
 }
