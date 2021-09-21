@@ -15,7 +15,7 @@
 #include "flyweight.h"
 #include "proxy.h"
 #include "chain_of_responsibility.h"
-
+#include "command.h"
 int main(int argc, char *argv[])
 {
     // facotry_method::run();            // 工厂模式
@@ -32,7 +32,8 @@ int main(int argc, char *argv[])
     // flyweight::run();                 // 享元模式
     // proxy::run();                     // 代理模式
     
-    chain_of_responsibility::run();      // 责任链模式
+    // chain_of_responsibility::run();   // 责任链模式
+    command::run();                      // 命令模式
 
 }
 
