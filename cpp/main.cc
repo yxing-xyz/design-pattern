@@ -16,6 +16,8 @@
 #include "proxy.h"
 #include "chain_of_responsibility.h"
 #include "command.h"
+#include "iterator.h"
+
 int main(int argc, char *argv[])
 {
     // facotry_method::run();            // 工厂模式
@@ -23,7 +25,7 @@ int main(int argc, char *argv[])
     // builder::run();                   // 建筑模式
     // prototype::run();                 // 原型模式
     // singleton::run();                 // 单例模式
-    
+
     // adapter::run();                   // 适配器模式
     // bridge::run();                    // 桥接模式
     // composite::run();                 // 组合模式
@@ -31,10 +33,10 @@ int main(int argc, char *argv[])
     // facacde::run();                   // 外观模式(门面模式)
     // flyweight::run();                 // 享元模式
     // proxy::run();                     // 代理模式
-    
-    // chain_of_responsibility::run();   // 责任链模式
-    command::run();                      // 命令模式
 
+    // chain_of_responsibility::run();   // 责任链模式
+    // command::run();                   // 命令模式
+    iterator::run();
 }
 
 /* 类图关系:
