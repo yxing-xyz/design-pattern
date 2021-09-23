@@ -17,6 +17,7 @@
 #include "chain_of_responsibility.h"
 #include "command.h"
 #include "iterator.h"
+#include "mediator.h"
 
 int main(int argc, char *argv[])
 {
@@ -36,7 +37,8 @@ int main(int argc, char *argv[])
 
     // chain_of_responsibility::run();   // 责任链模式
     // command::run();                   // 命令模式
-    iterator::run();
+    // iterator::run();                  // 迭代器模式
+    mediator::run();    
 }
 
 /* 类图关系:

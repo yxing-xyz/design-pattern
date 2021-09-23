@@ -50,6 +50,7 @@ namespace iterator
     template <class T>
     class Container
     {
+        
         friend class Iterator<T, Container>;
 
     public:
