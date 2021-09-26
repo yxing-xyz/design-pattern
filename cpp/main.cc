@@ -18,6 +18,7 @@
 #include "command.h"
 #include "iterator.h"
 #include "mediator.h"
+#include "memento.h"
 
 int main(int argc, char *argv[])
 {
@@ -38,7 +39,8 @@ int main(int argc, char *argv[])
     // chain_of_responsibility::run();   // 责任链模式
     // command::run();                   // 命令模式
     // iterator::run();                  // 迭代器模式
-    mediator::run();    
+    // mediator::run();                  // 中介者模式
+    memento::run();                      // 备忘录模式
 }
 
 /* 类图关系:
