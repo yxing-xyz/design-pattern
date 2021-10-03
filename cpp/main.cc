@@ -7,6 +7,7 @@
 #include "builder.h"
 #include "prototype.h"
 #include "singleton.h"
+
 #include "adapter.h"
 #include "bridge.h"
 #include "composite.h"
@@ -14,11 +15,13 @@
 #include "facade.h"
 #include "flyweight.h"
 #include "proxy.h"
+
 #include "chain_of_responsibility.h"
 #include "command.h"
 #include "iterator.h"
 #include "mediator.h"
 #include "memento.h"
+#include "observer.h"
 
 int main(int argc, char *argv[])
 {
@@ -40,7 +43,8 @@ int main(int argc, char *argv[])
     // command::run();                   // 命令模式
     // iterator::run();                  // 迭代器模式
     // mediator::run();                  // 中介者模式
-    memento::run();                      // 备忘录模式
+    // memento::run();                   // 备忘录模式
+    observer::Run();                     // 观察者模式 
 }
 
 /* 类图关系:
