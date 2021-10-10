@@ -22,6 +22,7 @@
 #include "mediator.h"
 #include "memento.h"
 #include "observer.h"
+#include "state.h"
 
 int main(int argc, char *argv[])
 {
@@ -44,7 +45,8 @@ int main(int argc, char *argv[])
     // iterator::run();                  // 迭代器模式
     // mediator::run();                  // 中介者模式
     // memento::run();                   // 备忘录模式
-    observer::Run();                     // 观察者模式 
+    // observer::Run();                  // 观察者模式 
+    state::run();                        // 状态模式
 }
 
 /* 类图关系:
