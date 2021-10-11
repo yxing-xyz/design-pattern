@@ -1,53 +1,69 @@
-//
-// Created by Jennica on 2017/1/2.
-//
-
 #include "strategy.h"
 #include <iostream>
-#include <sstream>
+#include <bits/stl_algo.h>
 
-double CashNormal::AcceptCash(double money) {
-  return money;
-}
-
-CashRebate::CashRebate(double money_rebate): money_rebate_(money_rebate) {}
-
-double CashRebate::AcceptCash(double money) {
-  return money * money_rebate_;
-}
-
-CashReturn::CashReturn(double money_condition, double money_return):
-    money_condition_(money_condition), money_return_(money_return) {}
-
-double CashReturn::AcceptCash(double money) {
-  return money - (int)(money / money_condition_) * money_return_;
-}
-
-CashContext::CashContext(std::string type, std::string number) {
-  if(type == "normal") {
-    cash_ = new CashNormal();
-  } else if (type == "rebate") {
-    std::stringstream ss;
-    double money_rebate;
-    ss << number;
-    ss >> money_rebate;
-    cash_ = new CashRebate(money_rebate);
-  } else if (type == "return") {
-    std::stringstream ss;
-    double money_condition, money_return;
-    ss << number;
-    ss >> money_condition >> money_return;
-    cash_ = new CashReturn(money_condition, money_return);
+namespace strategy
+{
+  Strategy::~Strategy()
+  {
   }
-}
 
-CashContext::~CashContext() {
-  delete cash_;
-}
+  Context::Context(Strategy *strategy) : strategy_(strategy)
+  {
+  }
+  Context::~Context()
+  {
+    delete this->strategy_;
+  }
+  void Context::set_strategy(Strategy *strategy)
+  {
+    // 重复释放nullptr没问题
+    delete this->strategy_;
+    this->strategy_ = strategy;
+  }
+  void Context::DoSomeBusinessLogic() const
+  {
+    std::cout << "Context: Sorting data using the strategy (not sure how it'll do it)\n";
+    std::string result = this->strategy_->DoAlgorithm(std::vector<std::string>{"a", "e", "c", "b", "d"});
+    std::cout << result << "\n";
+  }
 
-double CashContext::GetResult(double money) {
-  double result = cash_->AcceptCash(money);
-  std::cout << result << std::endl;
-  return result;
-}
+  std::string ConcreteStrategyA::DoAlgorithm(const std::vector<std::string> &data) const
+  {
+    std::string result;
+    std::for_each(std::begin(data), std::end(data), [&result](const std::string &letter)
+                  { result += letter; });
+    std::sort(std::begin(result), std::end(result));
+    return result;
+  }
 
+  std::string ConcreteStrategyB::DoAlgorithm(const std::vector<std::string> &data) const
+  {
+    std::string result;
+    std::for_each(std::begin(data), std::end(data), [&result](const std::string &letter)
+                  { result += letter; });
+    std::sort(std::begin(result), std::end(result));
+    for (int i = 0; i < result.size() / 2; i++)
+    {
+      std::swap(result[i], result[result.size() - i - 1]);
+    }
+
+    return result;
+  }
+  void ClientCode()
+  {
+    Context *context = new Context(new ConcreteStrategyA);
+    std::cout << "Client: Strategy is set to normal sorting.\n";
+    context->DoSomeBusinessLogic();
+    std::cout << "\n";
+    std::cout << "Client: Strategy is set to reverse sorting.\n";
+    context->set_strategy(new ConcreteStrategyB);
+    context->DoSomeBusinessLogic();
+    delete context;
+  }
+  void run()
+  {
+    ClientCode();
+  }
+
+};
