@@ -5,39 +5,79 @@
 #include "template_method.h"
 #include <iostream>
 
-void TestPaper::Question1() {
-  std::cout << "question 1: " << Answer1() << std::endl;
-}
+namespace template_method
+{
+  void AbstracClass::TemplateMethod() const
+  {
+    this->BaseOperation1();
+    this->RequiredOperations1();
+    this->BaseOperation2();
+    this->Hook1();
+    this->RequiredOperation2();
+    this->BaseOperation3();
+    this->Hook2();
+  }
 
-void TestPaper::Question2() {
-  std::cout << "question 2: " << Answer2() << std::endl;
-}
+  void AbstracClass::BaseOperation1() const
+  {
+    std::cout << "AbstractClass says: I am doing the bulk of the work\n";
+  }
+  void AbstracClass::BaseOperation2() const
+  {
+    std::cout << "AbstractClass says: But I let subclasses override some operations\n";
+  }
 
-void TestPaper::Question3() {
-  std::cout << "question 3: " << Answer3() << std::endl;
-}
+  void AbstracClass::BaseOperation3() const
+  {
+    std::cout << "AbstractClass says: But I am doing the bulk of the work anyway\n";
+  }
 
-std::string TestPaperA::Answer1() {
-  return "a";
-}
+  void AbstracClass::Hook1() const
+  {
+  }
+  void AbstracClass::Hook2() const
+  {
+  }
 
-std::string TestPaperA::Answer2() {
-  return "a";
-}
+  void ConcreteClass1::RequiredOperations1() const
+  {
+    std::cout << "ConcreteClass1 says: Implemented Operation1\n";
+  }
 
-std::string TestPaperA::Answer3() {
-  return "a";
-}
+  void ConcreteClass1::RequiredOperation2() const
+  {
+    std::cout << "ConcreteClass1 says: Implemented Operation2\n";
+  }
 
-std::string TestPaperB::Answer1() {
-  return "b";
-}
+  void ConcreteClass2::RequiredOperations1() const
+  {
+    std::cout << "ConcreteClass2 says: Implemented Operation1\n";
+  }
 
-std::string TestPaperB::Answer2() {
-  return "b";
-}
+  void ConcreteClass2::RequiredOperation2() const
+  {
+    std::cout << "ConcreteClass2 says: Implemented Operation2\n";
+  }
 
-std::string TestPaperB::Answer3() {
-  return "b";
-}
+  void ConcreteClass2::Hook1() const
+  {
+    std::cout << "ConcreteClass2 says: Overridden Hook1\n";
+  }
 
+  void ClientCode(AbstracClass *class_)
+  {
+    class_->TemplateMethod();
+  }
+  void run()
+  {
+    std::cout << "Same client code can work with different subclasses:\n";
+    ConcreteClass1 *concreteClass1 = new ConcreteClass1;
+    ClientCode(concreteClass1);
+    std::cout << "\n";
+    std::cout << "Same client code can work with different subclasses:\n";
+    ConcreteClass2 *concreteClass2 = new ConcreteClass2;
+    ClientCode(concreteClass2);
+    delete concreteClass1;
+    delete concreteClass2;
+  }
+}
