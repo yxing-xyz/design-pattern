@@ -1,51 +1,76 @@
-//
-// Created by Jennica on 2017/1/3.
-//
-
 #include "visitor.h"
 #include <iostream>
 
-void Man::Accept(Action *action) {
-  action->GetManConclusion(this);
-}
+namespace visitor
+{
+  Component::~Component() {}
 
-void Woman::Accept(Action *action) {
-  action->GetWomanConclusion(this);
-}
+  void ConcreteComponentA::Accept(Visitor *visitor) const
+  {
+    visitor->VisitConcreteComponentA(this);
+  }
 
-void ObjectStructure::Attach(Person *person) {
-  people.push_back(person);
-}
+  std::string ConcreteComponentA::ExclusiveMethodOfConcreteComponentA() const
+  {
+    return "A";
+  }
 
-void ObjectStructure::Detach(Person *person) {
-  for(std::vector <Person*>::iterator it = people.begin(); it != people.end(); ++it) {
-    if(*it == person) {
-      people.erase(it);
-      return;
+  void ConcreteComponentB::Accept(Visitor *visitor) const
+  {
+    visitor->VisitConcreteComponentB(this);
+  }
+
+  std::string ConcreteComponentB::SpecialMethodOfConcreteComponentB() const
+  {
+    return "B";
+  }
+
+  void ConcreteVisitor1::VisitConcreteComponentA(const ConcreteComponentA *element) const
+  {
+    std::cout << element->ExclusiveMethodOfConcreteComponentA() << " + ConcreteVisitor1\n";
+  }
+
+  void ConcreteVisitor1::VisitConcreteComponentB(const ConcreteComponentB *element) const
+  {
+    std::cout << element->SpecialMethodOfConcreteComponentB() << " + ConcreteVisitor1\n";
+  }
+
+  void ConcreteVisitor2::VisitConcreteComponentA(const ConcreteComponentA *element) const
+  {
+    std::cout << element->ExclusiveMethodOfConcreteComponentA() << " + ConcreteVisitor2\n";
+  }
+
+  void ConcreteVisitor2::VisitConcreteComponentB(const ConcreteComponentB *element) const
+  {
+    std::cout << element->SpecialMethodOfConcreteComponentB() << " + ConcreteVisitor2\n";
+  }
+
+  void ClientCode(std::array<const Component *, 2> components, Visitor *visitor)
+  {
+    // ...
+    for (const Component *comp : components)
+    {
+      comp->Accept(visitor);
     }
+    // ...
+  }
+
+  void run()
+  {
+    std::array<const Component *, 2> components = {new ConcreteComponentA, new ConcreteComponentB};
+    std::cout << "The client code works with all visitors via the base Visitor interface:\n";
+    ConcreteVisitor1 *visitor1 = new ConcreteVisitor1;
+    ClientCode(components, visitor1);
+    std::cout << "\n";
+    std::cout << "It allows the same client code to work with different types of visitors:\n";
+    ConcreteVisitor2 *visitor2 = new ConcreteVisitor2;
+    ClientCode(components, visitor2);
+
+    for (const Component *comp : components)
+    {
+      delete comp;
+    }
+    delete visitor1;
+    delete visitor2;
   }
 }
-
-void ObjectStructure::Display(Action *action) {
-  for (std::vector<Person *>::iterator it = people.begin(); it != people.end(); ++it) {
-    (*it)->Accept(action);
-  }
-}
-
-void Success::GetManConclusion(Person *person) {
-  std::cout << "man gets success" << std::endl;
-}
-
-void Success::GetWomanConclusion(Person *person) {
-  std::cout << "woman gets success" << std::endl;
-}
-
-void Failure::GetManConclusion(Person *person) {
-  std::cout << "man gets failure" << std::endl;
-}
-
-void Failure::GetWomanConclusion(Person *person) {
-  std::cout << "woman gets failure" << std::endl;
-}
-
-

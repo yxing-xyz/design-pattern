@@ -25,6 +25,7 @@
 #include "state.h"
 #include "strategy.h"
 #include "template_method.h"
+#include "visitor.h"
 
 int main(int argc, char *argv[])
 {
@@ -50,7 +51,8 @@ int main(int argc, char *argv[])
     // observer::Run();                  // 观察者模式 
     // state::run();                     // 状态模式
     // strategy::run();                  // 策略模式
-    template_method::run();              // 模板方法模式
+    // template_method::run();           // 模板方法模式
+    visitor::run();                      // 访问者模式
 }
 
 /* 类图关系:
