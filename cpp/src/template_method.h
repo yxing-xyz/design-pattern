@@ -52,7 +52,7 @@ namespace template_method
     void Hook1() const override;
   };
 
-  void ClientCode(AbstracClass *class_);
+  void ClientCode(AbstracClass *);
   void run();
 }
 

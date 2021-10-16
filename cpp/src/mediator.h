@@ -32,7 +32,7 @@ namespace mediator
   class Mediator
   {
   public:
-    virtual void Notify(BaseComponent *sender, std::string event) const = 0;
+    virtual void Notify(BaseComponent *, std::string) const = 0;
   };
 
   class BaseComponent
@@ -41,8 +41,8 @@ namespace mediator
     Mediator *mediator_;
 
   public:
-    BaseComponent(Mediator *mediator = nullptr);
-    void set_mediator(Mediator *mediator);
+    BaseComponent(Mediator * = nullptr);
+    void set_mediator(Mediator *);
   };
 
   class Component1 : public BaseComponent
@@ -65,8 +65,8 @@ namespace mediator
     Component2 *component2_;
 
   public:
-    ConcreteMediator(Component1 *c1, Component2 *c2);
-    void Notify(BaseComponent *sender, std::string event) const override;
+    ConcreteMediator(Component1 *, Component2 *);
+    void Notify(BaseComponent *, std::string) const override;
   };
 
   void ClientCode();

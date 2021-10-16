@@ -39,15 +39,15 @@ namespace observer
     {
     public:
         virtual ~IObserver();
-        virtual void Update(const std::string &message_from_subobject) = 0;
+        virtual void Update(const std::string &) = 0;
     };
 
     class ISubject
     {
     public:
         virtual ~ISubject(){};
-        virtual void Attach(IObserver *observer) = 0;
-        virtual void Detach(IObserver *observer) = 0;
+        virtual void Attach(IObserver *) = 0;
+        virtual void Detach(IObserver *) = 0;
         virtual void Notify() = 0;
     };
 
@@ -55,11 +55,11 @@ namespace observer
     {
     public:
         virtual ~Subject();
-        void Attach(IObserver *observer) override;
-        void Detach(IObserver *observer) override;
+        void Attach(IObserver *) override;
+        void Detach(IObserver *) override;
         void Notify() override;
 
-        void CreateMessage(std::string message = "Empty");
+        void CreateMessage(std::string = "Empty");
         void HowManyObserver();
         void SomeBusinessLogic();
 
@@ -71,9 +71,9 @@ namespace observer
     class Observer : public IObserver
     {
     public:
-        Observer(Subject &subject);
+        Observer(Subject &);
         virtual ~Observer();
-        void Update(const std::string &message_from_subject) override;
+        void Update(const std::string &) override;
         void RemoveMeFromTheList();
         void PrintInfo();
 

@@ -1,4 +1,6 @@
 /*
+让接口不兼容的对象能够相互合作.
+
 是什么:
 适配器模式是一种结构型设计模式， 它能使接口不兼容的对象能够相互合作。
 
@@ -37,11 +39,11 @@ namespace adapter
         Adaptee *adaptee_;
 
     public:
-        Adapter(Adaptee *adaptee);
+        Adapter(Adaptee *);
         std::string Request() const override;
     };
 
-    void ClientCode(const Target *target);
+    void ClientCode(const Target *);
     void run();
 }
 #endif //DESIGN_PATTERNS_ADAPTER_H

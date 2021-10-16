@@ -30,7 +30,7 @@ namespace strategy
   {
   public:
     virtual ~Strategy();
-    virtual std::string DoAlgorithm(const std::vector<std::string> &data) const = 0;
+    virtual std::string DoAlgorithm(const std::vector<std::string> &) const = 0;
   };
 
   class Context
@@ -39,20 +39,20 @@ namespace strategy
     Strategy *strategy_;
 
   public:
-    Context(Strategy *strategy = nullptr);
+    Context(Strategy * = nullptr);
     ~Context();
-    void set_strategy(Strategy *strategy);
+    void set_strategy(Strategy *);
     void DoSomeBusinessLogic() const;
   };
 
   class ConcreteStrategyA : public Strategy
   {
-    std::string DoAlgorithm(const std::vector<std::string> &data) const override;
+    std::string DoAlgorithm(const std::vector<std::string> &) const override;
   };
 
   class ConcreteStrategyB : public Strategy
   {
-    std::string DoAlgorithm(const std::vector<std::string> &data) const override;
+    std::string DoAlgorithm(const std::vector<std::string> &) const override;
   };
 
   void ClientCode();

@@ -1,4 +1,6 @@
 /*
+让你能创建一系列相关的对象,而无需指定其具体类.
+
 是什么:
 抽象工厂模式是一种创建型设计模式， 它能创建一系列相关的对象， 而无需指定其具体类。
 
@@ -50,21 +52,21 @@ namespace abstract_factory
         virtual ~AbstractProductB(){};
         virtual std::string UsefulFunctionB() const = 0;
         virtual std::string
-        AnotherUsefulFunctionB(const AbstractProductA &collaborator) const = 0;
+        AnotherUsefulFunctionB(const AbstractProductA &) const = 0;
     };
     class ConcreteProductB1 : public AbstractProductB
     {
     public:
         virtual std::string UsefulFunctionB() const override;
         std::string
-        AnotherUsefulFunctionB(const AbstractProductA &collaborator) const override;
+        AnotherUsefulFunctionB(const AbstractProductA &) const override;
     };
     class ConcreteProductB2 : public AbstractProductB
     {
     public:
         virtual std::string UsefulFunctionB() const override;
         std::string
-        AnotherUsefulFunctionB(const AbstractProductA &collaborator) const override;
+        AnotherUsefulFunctionB(const AbstractProductA &) const override;
     };
 
     class AbstractFactory
@@ -87,7 +89,7 @@ namespace abstract_factory
     };
 
     // 测试代码
-    void ClientCode(AbstractFactory &f);
+    void ClientCode(AbstractFactory &);
     void run();
 }
 

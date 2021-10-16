@@ -30,7 +30,7 @@ namespace iterator
 
     public:
         typedef typename std::vector<T>::iterator iter_type;
-        Iterator(U *p_data, bool reverse = false) : m_p_data_(p_data)
+        Iterator(U *p_data, bool = false) : m_p_data_(p_data)
         {
             m_it_ = m_p_data_->m_data_.begin();
         }
@@ -50,7 +50,7 @@ namespace iterator
     template <class T>
     class Container
     {
-        
+
         friend class Iterator<T, Container>;
 
     public:
@@ -71,8 +71,8 @@ namespace iterator
     class Data
     {
     public:
-        Data(int a = 0);
-        void set_data(int a);
+        Data(int = 0);
+        void set_data(int);
         int data();
 
     private:

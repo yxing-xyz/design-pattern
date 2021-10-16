@@ -1,4 +1,6 @@
 /*
+允许你通过将对象放入包含行为的特殊封装对象中来为原对象绑定新的行为
+
 是什么:
 装饰模式是一种结构型设计模式， 允许你通过将对象放入包含行为的特殊封装对象中来为原对象绑定新的行为。
 
@@ -47,7 +49,7 @@ namespace decorator
         Component *component_;
 
     public:
-        Decorator(Component *component);
+        Decorator(Component *);
         std::string Operation() const override;
     };
     class ConcreteDecoratorA : public Decorator
@@ -55,7 +57,7 @@ namespace decorator
     private:
         /* data */
     public:
-        ConcreteDecoratorA(Component *component);
+        ConcreteDecoratorA(Component *);
         virtual ~ConcreteDecoratorA();
 
         std::string Operation() const override;
@@ -66,13 +68,13 @@ namespace decorator
     private:
         /* data */
     public:
-        ConcreteDecoratorB(Component *component);
+        ConcreteDecoratorB(Component *);
         virtual ~ConcreteDecoratorB();
 
         std::string Operation() const override;
     };
 
-    void ClientCode(Component *component);
+    void ClientCode(Component *);
     void run();
 }
 

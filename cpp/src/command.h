@@ -50,15 +50,15 @@ namespace command
     std::string pay_load_;
 
   public:
-    explicit SimpleCommand(std::string pay_load);
+    explicit SimpleCommand(std::string);
     void Execute() const override;
   };
 
   class Receiver
   {
   public:
-    void DoSomething(const std::string &a);
-    void DoSomethingElse(const std::string &b);
+    void DoSomething(const std::string &);
+    void DoSomethingElse(const std::string &);
   };
 
   class ComplexCommand : public Command
@@ -72,7 +72,7 @@ namespace command
     std::string b_;
 
   public:
-    ComplexCommand(Receiver *receiver, std::string a, std::string b);
+    ComplexCommand(Receiver *, std::string, std::string);
     void Execute() const override;
   };
 
@@ -84,8 +84,8 @@ namespace command
 
   public:
     ~Invoker();
-    void SetOnStart(Command *command);
-    void SetOnFinish(Command *command);
+    void SetOnStart(Command *);
+    void SetOnFinish(Command *);
     void DoSomethingImportant();
   };
 

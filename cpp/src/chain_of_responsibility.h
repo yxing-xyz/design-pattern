@@ -40,8 +40,8 @@ namespace chain_of_responsibility
   class Handler
   {
   public:
-    virtual Handler *SetNext(Handler *handler) = 0;
-    virtual std::string Handle(std::string request) = 0;
+    virtual Handler *SetNext(Handler *) = 0;
+    virtual std::string Handle(std::string) = 0;
   };
   class AbstractHandler : public Handler
   {
@@ -50,29 +50,29 @@ namespace chain_of_responsibility
 
   public:
     AbstractHandler();
-    Handler *SetNext(Handler *handler) override;
-    std::string Handle(std::string request) override;
+    Handler *SetNext(Handler *) override;
+    std::string Handle(std::string) override;
   };
 
   class MonkeyHandler : public AbstractHandler
   {
   public:
-    std::string Handle(std::string request) override;
+    std::string Handle(std::string) override;
   };
 
   class SquirrelHandler : public AbstractHandler
   {
   public:
-    std::string Handle(std::string request) override;
+    std::string Handle(std::string) override;
   };
 
   class DogHandler : public AbstractHandler
   {
   public:
-    std::string Handle(std::string request) override;
+    std::string Handle(std::string) override;
   };
 
-  void ClientCode(Handler &handler);
+  void ClientCode(Handler &);
   void run();
 };
 

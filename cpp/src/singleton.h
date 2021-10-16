@@ -1,4 +1,6 @@
 /*
+让你能给保证一个类只有一个实例,并提供一个访问该实例的全局节点
+
 是什么:
 单例模式是一种创建型设计模式， 让你能够保证一个类只有一个实例， 并提供一个访问该实例的全局节点。
 
@@ -32,11 +34,11 @@ namespace singleton
 
     public:
         // 关闭编译器默认的拷贝构造函数,防止产生多个实例
-        Singleton(const Singleton &other) = delete;
+        Singleton(const Singleton &) = delete;
         // 关闭编译器默认的赋值运算符重载, 防止产生多个实例
         void operator=(const Singleton &) = delete;
 
-        static Singleton *GetInstance(const std::string &value);
+        static Singleton *GetInstance(const std::string &);
         void SomeBusinessLogic();
 
         std::string value() const;

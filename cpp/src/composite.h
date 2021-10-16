@@ -1,4 +1,6 @@
 /*
+你可以使用它将对象组合成树状结构, 并且能像使用独立对象一样使用他们.
+
 是什么:
 组合模式是一种结构型设计模式， 你可以使用它将对象组合成树状结构， 并且能像使用独立对象一样使用它们。
 
@@ -30,10 +32,10 @@ namespace composite
 
     public:
         virtual ~Component();
-        void SetParent(Component *component);
+        void SetParent(Component *);
         Component *GetParent();
-        virtual void Add(Component *component);
-        virtual void Remove(Component *component);
+        virtual void Add(Component *);
+        virtual void Remove(Component *);
         virtual bool IsComposite() const;
         virtual std::string Operation() const = 0;
     };
@@ -50,13 +52,13 @@ namespace composite
         std::list<Component *> children_;
 
     public:
-        void Add(Component *component) override;
-        void Remove(Component *component) override;
+        void Add(Component *) override;
+        void Remove(Component *) override;
         std::string Operation() const override;
     };
 
-    void ClientCode(const Component *component);
-    void ClientCode2(Component *component1, Component *component2);
+    void ClientCode(const Component *);
+    void ClientCode2(Component *, Component *);
     void run();
 }
 

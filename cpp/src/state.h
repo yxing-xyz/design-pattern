@@ -40,7 +40,7 @@ namespace state
 
     public:
         virtual ~State();
-        void set_context(Context *context);
+        void set_context(Context *);
         virtual void Handle1() = 0;
         virtual void Handle2() = 0;
     };
@@ -51,9 +51,9 @@ namespace state
         State *state_;
 
     public:
-        Context(State *state);
+        Context(State *);
         ~Context();
-        void TransitionTo(State *state);
+        void TransitionTo(State *);
         void Request1();
         void Request2();
     };

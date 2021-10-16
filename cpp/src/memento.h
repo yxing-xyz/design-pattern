@@ -48,7 +48,7 @@ namespace memento
     std::string date_;
 
   public:
-    ConcreteMemento(std::string state);
+    ConcreteMemento(std::string);
     std::string GetName() const override;
     std::string date() const override;
     std::string state() const override;
@@ -58,13 +58,13 @@ namespace memento
   {
   private:
     std::string state_;
-    std::string GenerateRandomString(int length = 10);
+    std::string GenerateRandomString(int = 10);
 
   public:
     Originator(std::string state);
     void DoSomething();
     Memento *Save();
-    void Restore(Memento *memento);
+    void Restore(Memento *);
   };
 
   class Caretaker
@@ -74,7 +74,7 @@ namespace memento
     Originator *originator_;
 
   public:
-    Caretaker(Originator *originator);
+    Caretaker(Originator *);
     void Backup();
     void Undo();
     void ShowHistory() const;

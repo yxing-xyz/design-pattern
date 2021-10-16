@@ -39,19 +39,20 @@ namespace proxy
         void Request() const override;
     };
 
-    class Proxy: public Subject
+    class Proxy : public Subject
     {
     private:
         RealSubject *real_subject_;
         bool CheckAccess() const;
         void LogAccess() const;
+
     public:
-        Proxy(RealSubject *realSubject);
+        Proxy(RealSubject *);
         ~Proxy();
         void Request() const override;
     };
 
-    void ClientCode(const Subject &subject);
+    void ClientCode(const Subject &);
     void run();
 }
 #endif //DESIGN_PATTERNS_PROXY_H

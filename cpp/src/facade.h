@@ -1,4 +1,5 @@
 /*
+能为程序库, 框架或其他复杂类提供简单的接口
 是什么:
 外观模式是一种结构型设计模式， 能为程序库、 框架或其他复杂类提供一个简单的接口。
 
@@ -44,12 +45,12 @@ namespace facacde
         Subsystem2 *subsystem2_;
 
     public:
-        Facade(Subsystem1 *subsystem1 = nullptr, Subsystem2 *subsystem2 = nullptr);
+        Facade(Subsystem1 * = nullptr, Subsystem2 * = nullptr);
         virtual ~Facade();
         std::string Operation() const;
     };
 
-    void ClientCode(Facade *facade);
+    void ClientCode(Facade *);
     void run();
 }
 

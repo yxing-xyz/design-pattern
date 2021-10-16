@@ -31,45 +31,45 @@ namespace visitor
   class Visitor
   {
   public:
-    virtual void VisitConcreteComponentA(const ConcreteComponentA *element) const = 0;
-    virtual void VisitConcreteComponentB(const ConcreteComponentB *element) const = 0;
+    virtual void VisitConcreteComponentA(const ConcreteComponentA *) const = 0;
+    virtual void VisitConcreteComponentB(const ConcreteComponentB *) const = 0;
   };
 
   class Component
   {
   public:
     virtual ~Component();
-    virtual void Accept(Visitor *vistor) const = 0;
+    virtual void Accept(Visitor *) const = 0;
   };
 
   class ConcreteComponentA : public Component
   {
   public:
-    void Accept(Visitor *vistor) const override;
+    void Accept(Visitor *) const override;
     std::string ExclusiveMethodOfConcreteComponentA() const;
   };
 
   class ConcreteComponentB : public Component
   {
   public:
-    void Accept(Visitor *vistor) const override;
+    void Accept(Visitor *) const override;
     std::string SpecialMethodOfConcreteComponentB() const;
   };
 
   class ConcreteVisitor1 : public Visitor
   {
   public:
-    void VisitConcreteComponentA(const ConcreteComponentA *element) const override;
-    void VisitConcreteComponentB(const ConcreteComponentB *element) const override;
+    void VisitConcreteComponentA(const ConcreteComponentA *) const override;
+    void VisitConcreteComponentB(const ConcreteComponentB *) const override;
   };
 
   class ConcreteVisitor2 : public Visitor
   {
   public:
-    void VisitConcreteComponentA(const ConcreteComponentA *element) const override;
-    void VisitConcreteComponentB(const ConcreteComponentB *element) const override;
+    void VisitConcreteComponentA(const ConcreteComponentA *) const override;
+    void VisitConcreteComponentB(const ConcreteComponentB *) const override;
   };
-  void ClientCode(std::array<const Component *, 2> components, Visitor *visitor);
+  void ClientCode(std::array<const Component *, 2>, Visitor *);
   void run();
 
 } // namespace visitor

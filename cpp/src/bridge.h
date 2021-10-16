@@ -1,8 +1,9 @@
 /*
+可将一个大类或一系列紧密相关的类拆分为抽象和实现两个独立的结构层次, 从而能在开发的时候分别使用.
+
 是什么:
 桥接模式是一种结构型设计模式， 可将一个大类或一系列紧密相关的类拆分为抽象和实现两个独立的层次结构， 从而能在开发时分别使用。
 桥接模式通常会于开发前期进行设计， 使你能够将程序的各个部分独立开来以便开发。 另一方面， 适配器模式通常在已有程序中使用， 让相互不兼容的类能很好地合作。
-
 
 为什么:
 你有一个基类形状(Shape),它有两个派生类圆形(Circle)和方形(Square), 你需要对这样的类层次结构拓展使它们包含颜色,所以你打算创建红色(Red)和蓝色(Blue)的形状子类,因为已经有圆形和方形了你需要拓展就会产生红色圆形和红色方形, 蓝色圆形和蓝色方形, 每增加一种颜色或者形状都会导致产生Shape的子类.如此以往,情况会越来月糟糕.
@@ -54,7 +55,7 @@ namespace bridge
     Implementation *implementation_;
 
   public:
-    Abstraction(Implementation *implementation);
+    Abstraction(Implementation *);
     virtual ~Abstraction();
     virtual std::string Operation() const;
   };
@@ -62,11 +63,11 @@ namespace bridge
   class ExtendedAbstraction : public Abstraction
   {
   public:
-    ExtendedAbstraction(Implementation *implementation);
+    ExtendedAbstraction(Implementation *);
     std::string Operation() const override;
   };
 
-  void ClientCode(const Abstraction &abstraction);
+  void ClientCode(const Abstraction &);
   void run();
 }
 #endif //DESIGN_PATTERNS_BRIDGE_H

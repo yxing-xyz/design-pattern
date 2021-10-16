@@ -1,4 +1,6 @@
 /*
+摒弃了每个对象中保存所有数据的方式, 通过共享多个对象所共有的相同状态, 让你能在有限的内存容量中载入更多的对象.
+
 是什么:
 享元模式是一种结构型设计模式， 它摒弃了在每个对象中保存所有数据的方式， 通过共享多个对象所共有的相同状态， 让你能在有限的内存容量中载入更多对象。
 
@@ -42,11 +44,11 @@ namespace flyweight
     std::string brand_;
     std::string model_;
     std::string color_;
-    friend std::ostream &operator<<(std::ostream &os, const SharedState &ss);
+    friend std::ostream &operator<<(std::ostream &, const SharedState &);
 
   public:
     friend class FlyweightFactory;
-    SharedState(const std::string &brand, const std::string &model, const std::string &color);
+    SharedState(const std::string &, const std::string &, const std::string &);
   };
 
   class UniqueState
@@ -54,10 +56,10 @@ namespace flyweight
   private:
     std::string owner_;
     std::string plates_;
-    friend std::ostream &operator<<(std::ostream &os, const UniqueState &us);
+    friend std::ostream &operator<<(std::ostream &, const UniqueState &);
 
   public:
-    UniqueState(const std::string &owner, const std::string &plates);
+    UniqueState(const std::string &, const std::string &);
   };
 
   class Flyweight
@@ -66,31 +68,31 @@ namespace flyweight
     SharedState *shared_state_;
 
   public:
-    Flyweight(const SharedState *shared_state);
+    Flyweight(const SharedState *);
 
-    Flyweight(const Flyweight &other);
+    Flyweight(const Flyweight &);
 
     ~Flyweight();
 
     SharedState *shared_state() const;
 
-    void Operation(const UniqueState &unique_state) const;
+    void Operation(const UniqueState &) const;
   };
 
   class FlyweightFactory
   {
   private:
     std::unordered_map<std::string, Flyweight> flyweights_;
-    std::string GetKey(const SharedState &ss) const;
+    std::string GetKey(const SharedState &) const;
 
   public:
-    FlyweightFactory(std::initializer_list<SharedState> share_states);
-    Flyweight GetFlyweight(const SharedState &shared_state);
+    FlyweightFactory(std::initializer_list<SharedState>);
+    Flyweight GetFlyweight(const SharedState &);
     void ListFlyweights() const;
   };
 
-  void AddCarToPoliceDatabase(FlyweightFactory &ff, const std::string &plates, const std::string &owner,
-                              const std::string &brand, const std::string &model, const std::string &color);
+  void AddCarToPoliceDatabase(FlyweightFactory &, const std::string &, const std::string &,
+                              const std::string &, const std::string &, const std::string &);
   void run();
 }
 
