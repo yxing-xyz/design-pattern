@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestMain(t *testing.T) {
+func TestRun(t *testing.T) {
 	adidasFactory, err := getSportsFactory("adidas")
 	if err != nil {
 		t.Fail()

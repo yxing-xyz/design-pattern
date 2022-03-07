@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestMain(t *testing.T) {
+func TestRun(t *testing.T) {
 	pizza := &veggMania{}
 
 	pizzaWithCheese := &cheeseTopping{pizza: pizza}

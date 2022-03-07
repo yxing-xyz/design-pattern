@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestMain(t *testing.T) {
+func TestRun(t *testing.T) {
 	ak47, err := getGun("ak47")
 	if err != nil {
 		panic(err)

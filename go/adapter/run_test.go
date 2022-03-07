@@ -2,7 +2,7 @@ package adapter
 
 import "testing"
 
-func TestMain(t *testing.T) {
+func TestRun(t *testing.T) {
 
 	client := &client{}
 	mac := &mac{}

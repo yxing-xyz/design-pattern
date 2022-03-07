@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestMain(t *testing.T) {
+func TestRun(t *testing.T) {
 	normalBuilder, err := builder.GetBuilder("normal")
 	if err != nil {
 		panic(err)
