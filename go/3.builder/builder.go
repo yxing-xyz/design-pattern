@@ -1,6 +1,6 @@
 package builder
 
-import "github.com/pingcap/errors"
+import "errors"
 
 type IBuilder interface {
 	SetWindowType()

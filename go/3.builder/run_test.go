@@ -1,19 +1,20 @@
 package builder
 
 import (
+	"fmt"
 	"testing"
 )
 
 func TestRun(t *testing.T) {
-	normalBuilder, err := builder.GetBuilder("normal")
+	normalBuilder, err := GetBuilder("normal")
 	if err != nil {
 		panic(err)
 	}
-	iglooBuilder, err := builder.GetBuilder("igloo")
+	iglooBuilder, err := GetBuilder("igloo")
 	if err != nil {
 		panic(err)
 	}
-	direcotr := builder.NewDirector(normalBuilder)
+	direcotr := NewDirector(normalBuilder)
 	normalHouse, err := direcotr.BuildHouse()
 	if err != nil {
 		panic(err)

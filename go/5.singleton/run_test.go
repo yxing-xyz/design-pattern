@@ -2,6 +2,7 @@ package singleton
 
 import (
 	"fmt"
+	"testing"
 )
 
 func TestRun(t *testing.T) {

@@ -1,23 +1,26 @@
 package prototype
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-func TestRun(t testing.T) {
-    file1 := &prototype.File{
+func TestRun(t *testing.T) {
+	file1 := &File{
 		Name: "File1",
 	}
-	file2 := &prototype.File{
+	file2 := &File{
 		Name: "File2",
 	}
-	file3 := &prototype.File{
+	file3 := &File{
 		Name: "File3",
 	}
-	folder1 := &prototype.Folder{
-		Children: []prototype.INode{file1},
+	folder1 := &Folder{
+		Children: []INode{file1},
 		Name:     "folder1",
 	}
-	folder2 := &prototype.Folder{
-		Children: []prototype.INode{folder1, file2, file3},
+	folder2 := &Folder{
+		Children: []INode{folder1, file2, file3},
 		Name:     "folder2",
 	}
 	fmt.Println("\nPrinting hierarchy for Folder2")

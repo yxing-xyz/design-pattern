@@ -1,7 +1,6 @@
-package decorator
+package command
 
 import (
-	"fmt"
 	"testing"
 )
 

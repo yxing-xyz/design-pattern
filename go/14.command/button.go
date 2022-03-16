@@ -1,9 +1,9 @@
-package main
+package command
 
 type button struct {
-    command command
+	command command
 }
 
 func (b *button) press() {
-    b.command.execute()
+	b.command.execute()
 }

@@ -1,4 +1,4 @@
-package main
+package command
 
 type offCommand struct {
 	device device
